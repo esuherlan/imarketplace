@@ -60,7 +60,7 @@ export default function CategoriesPage() {
         </div>
         <button
           onClick={openAddModal}
-          className="flex items-center gap-2 bg-indigo-600 text-white px-4 py-2.5 rounded-lg text-sm font-medium hover:bg-indigo-700 transition-colors"
+          className="flex items-center gap-2 bg-brand-600 text-white px-4 py-2.5 rounded-lg text-sm font-medium hover:bg-brand-700 transition-colors"
         >
           <Plus size={16} />
           {t('categories.addCategory')}
@@ -74,7 +74,7 @@ export default function CategoriesPage() {
           value={search}
           onChange={(e) => setSearch(e.target.value)}
           placeholder={t('categories.search') ?? ''}
-          className="w-full pl-9 pr-3 py-2 text-sm rounded-lg border border-gray-200 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+          className="w-full pl-9 pr-3 py-2 text-sm rounded-lg border border-gray-200 focus:outline-none focus:ring-2 focus:ring-brand-500 focus:border-transparent"
         />
       </div>
 
@@ -120,7 +120,7 @@ export default function CategoriesPage() {
                   <div className="flex items-center justify-end gap-1">
                     <button
                       onClick={() => openEditModal(cat)}
-                      className="p-2 text-gray-400 hover:text-indigo-600 hover:bg-indigo-50 rounded-lg transition-colors"
+                      className="p-2 text-gray-400 hover:text-brand-600 hover:bg-brand-50 rounded-lg transition-colors"
                     >
                       <Pencil size={15} />
                     </button>
@@ -154,7 +154,7 @@ export default function CategoriesPage() {
               value={nameInput}
               onChange={(e) => setNameInput(e.target.value)}
               placeholder={t('categories.namePlaceholder') ?? ''}
-              className="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
+              className="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-brand-500"
             />
           </div>
           <div className="flex justify-end gap-2 pt-2">
@@ -167,7 +167,7 @@ export default function CategoriesPage() {
             </button>
             <button
               type="submit"
-              className="px-4 py-2 text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 rounded-lg transition-colors"
+              className="px-4 py-2 text-sm font-medium text-white bg-brand-600 hover:bg-brand-700 rounded-lg transition-colors"
             >
               {editing ? t('categories.saveChanges') : t('categories.addCategory')}
             </button>

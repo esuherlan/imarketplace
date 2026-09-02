@@ -61,7 +61,7 @@ export default function UsersPage() {
   };
 
   const roleBadgeColor: Record<AppUser['role'], string> = {
-    admin: 'bg-indigo-50 text-indigo-700',
+    admin: 'bg-brand-50 text-brand-700',
     editor: 'bg-amber-50 text-amber-700',
     viewer: 'bg-gray-100 text-gray-600',
   };
@@ -75,7 +75,7 @@ export default function UsersPage() {
         </div>
         <button
           onClick={openAddModal}
-          className="flex items-center gap-2 bg-indigo-600 text-white px-4 py-2.5 rounded-lg text-sm font-medium hover:bg-indigo-700 transition-colors"
+          className="flex items-center gap-2 bg-brand-600 text-white px-4 py-2.5 rounded-lg text-sm font-medium hover:bg-brand-700 transition-colors"
         >
           <Plus size={16} />
           {t('users.addUser')}
@@ -89,7 +89,7 @@ export default function UsersPage() {
           value={search}
           onChange={(e) => setSearch(e.target.value)}
           placeholder={t('users.search') ?? ''}
-          className="w-full pl-9 pr-3 py-2 text-sm rounded-lg border border-gray-200 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+          className="w-full pl-9 pr-3 py-2 text-sm rounded-lg border border-gray-200 focus:outline-none focus:ring-2 focus:ring-brand-500 focus:border-transparent"
         />
       </div>
 
@@ -139,7 +139,7 @@ export default function UsersPage() {
                   <div className="flex items-center justify-end gap-1">
                     <button
                       onClick={() => openEditModal(user)}
-                      className="p-2 text-gray-400 hover:text-indigo-600 hover:bg-indigo-50 rounded-lg transition-colors"
+                      className="p-2 text-gray-400 hover:text-brand-600 hover:bg-brand-50 rounded-lg transition-colors"
                     >
                       <Pencil size={15} />
                     </button>
@@ -173,7 +173,7 @@ export default function UsersPage() {
               value={nameInput}
               onChange={(e) => setNameInput(e.target.value)}
               placeholder={t('users.namePlaceholder') ?? ''}
-              className="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
+              className="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-brand-500"
             />
           </div>
           <div>
@@ -185,7 +185,7 @@ export default function UsersPage() {
               value={emailInput}
               onChange={(e) => setEmailInput(e.target.value)}
               placeholder="you@imago.us"
-              className="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
+              className="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-brand-500"
             />
           </div>
           <div>
@@ -195,7 +195,7 @@ export default function UsersPage() {
             <select
               value={roleInput}
               onChange={(e) => setRoleInput(e.target.value as AppUser['role'])}
-              className="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 capitalize"
+              className="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-brand-500 capitalize"
             >
               {ROLES.map((role) => (
                 <option key={role} value={role} className="capitalize">
@@ -214,7 +214,7 @@ export default function UsersPage() {
             </button>
             <button
               type="submit"
-              className="px-4 py-2 text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 rounded-lg transition-colors"
+              className="px-4 py-2 text-sm font-medium text-white bg-brand-600 hover:bg-brand-700 rounded-lg transition-colors"
             >
               {editing ? t('users.saveChanges') : t('users.addUser')}
             </button>

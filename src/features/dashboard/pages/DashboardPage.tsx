@@ -7,7 +7,7 @@ export default function DashboardPage() {
   const user = useAuthStore((s) => s.user);
 
   const stats = [
-    { label: t('dashboard.totalProducts'), value: '1,284', icon: Package, color: 'bg-indigo-50 text-indigo-600' },
+    { label: t('dashboard.totalProducts'), value: '1,284', icon: Package, color: 'bg-brand-50 text-brand-600' },
     { label: t('dashboard.ordersToday'), value: '86', icon: ShoppingBag, color: 'bg-emerald-50 text-emerald-600' },
     { label: t('dashboard.activeSellers'), value: '312', icon: Users2, color: 'bg-amber-50 text-amber-600' },
     { label: t('dashboard.revenue'), value: '$24.6K', icon: TrendingUp, color: 'bg-rose-50 text-rose-600' },

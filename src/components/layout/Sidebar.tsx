@@ -38,18 +38,32 @@ export default function Sidebar() {
 
       <aside
         className={clsx(
-          // mobile base: fixed off-canvas drawer, removed from normal flow
           'fixed inset-y-0 left-0 z-50 w-64 h-screen flex flex-col bg-white border-r border-gray-100',
           'transition-transform duration-200',
           mobileOpen ? 'translate-x-0' : '-translate-x-full',
-          // desktop: back into normal flow as sticky sidebar, no transform
           'lg:sticky lg:top-0 lg:inset-auto lg:translate-x-0',
           collapsed ? 'lg:w-20' : 'lg:w-64'
         )}
       >
-        <div className="h-16 flex items-center justify-between px-4 border-b border-gray-100">
+        {/* Collapse toggle — floating circle on the sidebar edge, desktop only */}
+        <button
+          onClick={toggleCollapsed}
+          title={collapsed ? t('sidebar.expand', 'Expand') : t('sidebar.collapse', 'Collapse')}
+          className={clsx(
+            'hidden lg:flex absolute -right-3 top-[52px] z-10',
+            'w-6 h-6 rounded-full bg-white border border-gray-200 shadow-sm',
+            'items-center justify-center text-gray-400 hover:text-brand-600 hover:border-brand-200 transition-colors'
+          )}
+        >
+          <ChevronLeft
+            size={14}
+            className={clsx('transition-transform', collapsed && 'rotate-180')}
+          />
+        </button>
+
+        <div className="h-16 flex items-center justify-between px-4">
           <div className="flex items-center gap-2 min-w-0">
-            <div className="w-8 h-8 rounded-xl bg-indigo-600 text-white flex items-center justify-center font-bold shrink-0">
+            <div className="w-8 h-8 rounded-xl bg-brand-600 text-white flex items-center justify-center font-bold shrink-0">
               IM
             </div>
             {(!collapsed || mobileOpen) && (
@@ -74,7 +88,7 @@ export default function Sidebar() {
                 clsx(
                   'flex items-center gap-3 px-3 py-2.5 rounded-2xl text-sm font-medium transition-colors',
                   isActive
-                    ? 'bg-indigo-50 text-indigo-600'
+                    ? 'bg-brand-50 text-brand-600'
                     : 'text-gray-600 hover:bg-gray-50'
                 )
               }
@@ -86,19 +100,6 @@ export default function Sidebar() {
             </NavLink>
           ))}
         </nav>
-
-        <div className="p-3 border-t border-gray-100 hidden lg:block">
-          <button
-            onClick={toggleCollapsed}
-            className="flex items-center gap-2 w-full px-3 py-2 rounded-2xl text-sm text-gray-500 hover:bg-gray-50"
-          >
-            <ChevronLeft
-              size={18}
-              className={clsx('transition-transform', collapsed && 'rotate-180')}
-            />
-            {!collapsed && <span>{t('sidebar.collapse', 'Collapse')}</span>}
-          </button>
-        </div>
       </aside>
     </>
   );
