@@ -1,0 +1,76 @@
+import { NavLink } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
+import {
+  LayoutDashboard,
+  FolderKanban,
+  LayoutTemplate,
+  Library,
+  Users,
+  FileBadge,
+  ChevronsLeft,
+  ChevronsRight,
+} from 'lucide-react';
+import { useState } from 'react';
+import clsx from 'clsx';
+
+export function Sidebar() {
+  const { t } = useTranslation();
+  const [collapsed, setCollapsed] = useState(false);
+
+  const navItems = [
+    { to: '/dashboard', label: t('nav.dashboard'), icon: LayoutDashboard },
+    { to: '/categories', label: t('nav.categories'), icon: FolderKanban },
+    { to: '/templates', label: t('nav.templates'), icon: LayoutTemplate },
+    { to: '/libraries', label: t('nav.libraries'), icon: Library },
+    { to: '/users', label: t('nav.users'), icon: Users },
+    { to: '/license', label: t('nav.license'), icon: FileBadge },
+  ];
+
+  return (
+    <aside
+      className={clsx(
+        'h-screen sticky top-0 flex flex-col bg-white border-r border-gray-100 transition-all duration-200',
+        collapsed ? 'w-[76px]' : 'w-64'
+      )}
+    >
+      <div className="h-16 flex items-center px-4 border-b border-gray-100">
+        <div className="w-8 h-8 rounded-lg bg-indigo-600 flex items-center justify-center text-white font-bold text-sm shrink-0">
+          IM
+        </div>
+        {!collapsed && (
+          <span className="ml-3 font-semibold text-gray-900 truncate">
+            Imago Marketplace
+          </span>
+        )}
+      </div>
+
+      <nav className="flex-1 px-3 py-4 space-y-1 overflow-y-auto">
+        {navItems.map(({ to, label, icon: Icon }) => (
+          <NavLink
+            key={to}
+            to={to}
+            className={({ isActive }) =>
+              clsx(
+                'flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-colors',
+                isActive
+                  ? 'bg-indigo-50 text-indigo-700'
+                  : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900'
+              )
+            }
+          >
+            <Icon size={19} className="shrink-0" />
+            {!collapsed && <span className="truncate">{label}</span>}
+          </NavLink>
+        ))}
+      </nav>
+
+      <button
+        onClick={() => setCollapsed((c) => !c)}
+        className="flex items-center gap-2 px-3 py-3 mx-3 mb-3 rounded-lg text-sm text-gray-500 hover:bg-gray-50 border-t border-gray-100"
+      >
+        {collapsed ? <ChevronsRight size={18} /> : <ChevronsLeft size={18} />}
+        {!collapsed && <span>{t('nav.collapse')}</span>}
+      </button>
+    </aside>
+  );
+}

@@ -1,0 +1,37 @@
+import { LogOut, User } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
+import { useAuthStore } from '../../features/auth/store/authStore';
+import { LanguageSwitcher } from '../LanguageSwitcher';
+
+export function Topbar() {
+  const { t } = useTranslation();
+  const user = useAuthStore((s) => s.user);
+  const logout = useAuthStore((s) => s.logout);
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    logout();
+    navigate('/login');
+  };
+
+  return (
+    <header className="h-16 sticky top-0 z-10 bg-white/80 backdrop-blur border-b border-gray-100 px-6 flex items-center justify-between">
+      <div />
+      <div className="flex items-center gap-3">
+        <LanguageSwitcher />
+        <div className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-gray-50 text-sm text-gray-700">
+          <User size={15} />
+          <span>{user?.name ?? user?.email}</span>
+        </div>
+        <button
+          onClick={handleLogout}
+          className="flex items-center gap-1.5 px-3 py-1.5 rounded-full text-sm font-medium text-red-600 hover:bg-red-50 transition-colors"
+        >
+          <LogOut size={15} />
+          {t('topbar.logout')}
+        </button>
+      </div>
+    </header>
+  );
+}
