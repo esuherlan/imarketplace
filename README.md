@@ -1,6 +1,6 @@
 # Imago Marketplace
 
-Frontend marketplace portal untuk Imago — pengganti Collab admin portal lama dengan UI yang lebih modern dan clean.
+Frontend marketplace portal for Imago — a replacement for the legacy Collab admin portal with a more modern and clean UI.
 
 ## Tech Stack
 
@@ -8,16 +8,16 @@ Frontend marketplace portal untuk Imago — pengganti Collab admin portal lama d
 - **Styling:** Tailwind CSS v4 (via @tailwindcss/vite plugin)
 - **Routing:** react-router-dom
 - **State management:** Zustand
-- **Data fetching:** @tanstack/react-query + axios (siap dipakai, belum aktif — backend belum tersedia)
+- **Data fetching:** @tanstack/react-query + axios (ready to use, not yet active — backend not available yet)
 - **i18n:** i18next + react-i18next (EN/ID)
 - **Icons:** lucide-react
-- **Deployment:** Docker (multi-stage build ke nginx)
+- **Deployment:** Docker (multi-stage build to nginx)
 
 ## Prerequisites
 
 - Node.js 20+
 - npm
-- Docker and Docker Compose (untuk deployment)
+- Docker and Docker Compose (for deployment)
 
 ## Getting Started
 
@@ -29,37 +29,37 @@ Frontend marketplace portal untuk Imago — pengganti Collab admin portal lama d
 
     cp .env.example .env
 
-Sesuaikan VITE_API_BASE_URL di .env dengan endpoint backend kamu (default: http://localhost:3000/api).
+Adjust VITE_API_BASE_URL in .env to match your backend endpoint (default: http://localhost:3000/api).
 
-### 3. Jalankan development server
+### 3. Run the development server
 
     npm run dev
 
-App akan jalan di http://localhost:5174.
+The app will run at http://localhost:5174.
 
-### 4. Build untuk production
+### 4. Build for production
 
     npm run build
 
-Hasil build ada di folder dist/.
+The build output will be in the dist/ folder.
 
 ## Docker
 
-### Build and jalankan dengan Docker Compose
+### Build and run with Docker Compose
 
     docker compose up -d --build
 
-App akan bisa diakses di http://localhost:8080.
+The app will be accessible at http://localhost:8080.
 
-### Perintah operasional lainnya
+### Other operational commands
 
     docker compose down
     docker compose up -d --build
     docker compose logs -f imago-marketplace
 
-Catatan: VITE_API_BASE_URL di-inject saat build time, bukan runtime. Kalau backend URL berubah, perlu rebuild image, bukan sekadar restart container.
+Note: VITE_API_BASE_URL is injected at build time, not runtime. If the backend URL changes, you need to rebuild the image, not just restart the container.
 
-## Struktur Folder
+## Folder Structure
 
     src/
     |-- components/
@@ -69,51 +69,51 @@ Catatan: VITE_API_BASE_URL di-inject saat build time, bukan runtime. Kalau backe
     |   `-- ProtectedRoute.tsx
     |-- features/
     |   |-- auth/            Login, Register, auth store
-    |   |-- dashboard/       Dashboard dengan stat cards
-    |   |-- categories/      CRUD kategori produk
-    |   |-- templates/       CRUD template
-    |   |-- libraries/       CRUD library aset
-    |   `-- users/           CRUD user and role management
-    |-- i18n/                Konfigurasi and locale files (EN/ID)
+    |   |-- dashboard/       Dashboard with stat cards
+    |   |-- categories/      Product category CRUD
+    |   |-- templates/       Template CRUD
+    |   |-- libraries/       Asset library CRUD
+    |   `-- users/           User and role management CRUD
+    |-- i18n/                Configuration and locale files (EN/ID)
     |-- lib/
     |   `-- api.ts           Axios instance and interceptor
     `-- main.tsx             Entry point and routing
 
-### Pola Feature (CRUD)
+### Feature Pattern (CRUD)
 
-Setiap feature module mengikuti struktur konsisten:
+Every feature module follows a consistent structure:
 
     features/<name>/
-    |-- types.ts              Interface data model
+    |-- types.ts              Data model interface
     |-- store/<name>Store.ts  Zustand store (add/update/delete/toggleStatus)
-    `-- pages/<Name>Page.tsx  Table + search + modal add/edit + modal delete confirm
+    `-- pages/<Name>Page.tsx  Table + search + add/edit modal + delete confirm modal
 
-## Status Fitur
+## Feature Status
 
-| Fitur | Status | Keterangan |
+| Feature | Status | Notes |
 |---|---|---|
-| Login / Register | Done | Dummy auth (admin@imago.us / password123), persist ke localStorage |
-| Dashboard | Done | Stat cards dengan dummy data |
-| Categories | Done | CRUD lengkap |
-| Templates | Done | CRUD lengkap |
-| Libraries | Done | CRUD lengkap |
-| Users | Done | CRUD lengkap dengan role management |
-| License | Pending | Belum dikerjakan |
-| Multi-language (EN/ID) | Done | Toggle via Topbar / halaman login |
-| Docker deployment | Done | Multi-stage build, nginx serve |
-| Backend integration | Pending | Masih dummy data, belum terhubung ke API asli |
+| Login / Register | Done | Dummy auth (admin@imago.us / password123), persisted to localStorage |
+| Dashboard | Done | Stat cards with dummy data |
+| Categories | Done | Full CRUD |
+| Templates | Done | Full CRUD |
+| Libraries | Done | Full CRUD |
+| Users | Done | Full CRUD with role management |
+| License | Pending | Not yet implemented |
+| Multi-language (EN/ID) | Done | Toggle via Topbar / login page |
+| Docker deployment | Done | Multi-stage build, served via nginx |
+| Backend integration | Pending | Still using dummy data, not yet connected to a real API |
 
-## Catatan Penting
+## Important Notes
 
-- Semua data saat ini adalah dummy (in-memory via Zustand, kecuali auth yang persist ke localStorage). Data CRUD akan reset ke initial state setiap refresh browser.
-- Struktur lib/api.ts sudah siap dengan axios interceptor untuk auth token, tinggal disambungkan ke endpoint backend asli begitu tersedia.
-- Type-only imports (interface/type) wajib menggunakan `import type { X } from '...'` karena verbatimModuleSyntax aktif di tsconfig — akan error saat build (tsc -b) kalau tidak diikuti.
+- All data is currently dummy data (in-memory via Zustand, except auth which persists to localStorage). CRUD data resets to its initial state on every browser refresh.
+- The lib/api.ts structure is ready, with an axios interceptor for the auth token — it just needs to be connected to the real backend endpoint once available.
+- Type-only imports (interface/type) must use `import type { X } from '...'` since verbatimModuleSyntax is enabled in tsconfig — the build (tsc -b) will fail if this isn't followed.
 
 ## Scripts
 
-| Command | Deskripsi |
+| Command | Description |
 |---|---|
-| npm run dev | Jalankan development server |
-| npm run build | Build untuk production (tsc -b && vite build) |
-| npm run preview | Preview hasil build secara lokal |
-| npm run lint | Jalankan ESLint |
+| npm run dev | Run the development server |
+| npm run build | Build for production (tsc -b && vite build) |
+| npm run preview | Preview the production build locally |
+| npm run lint | Run ESLint |
