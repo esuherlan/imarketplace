@@ -82,6 +82,7 @@ export default function TemplatesPage() {
       </div>
 
       <div className="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden">
+        <div className="overflow-x-auto">
         <table className="w-full text-sm">
           <thead>
             <tr className="border-b border-gray-100 bg-gray-50/50 text-left text-gray-500">
@@ -139,6 +140,7 @@ export default function TemplatesPage() {
             ))}
           </tbody>
         </table>
+        </div>
       </div>
 
       <Modal
