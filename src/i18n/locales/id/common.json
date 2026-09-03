@@ -133,5 +133,26 @@
     "delete": "Hapus",
     "active": "aktif",
     "inactive": "nonaktif"
+  },
+  "license": {
+    "title": "Lisensi",
+    "subtitle": "Kelola lisensi domain untuk marketplace.",
+    "addLicense": "Tambah Lisensi",
+    "editLicense": "Ubah Lisensi",
+    "search": "Cari berdasarkan domain...",
+    "domainName": "Nama Domain",
+    "licenseType": "Lisensi",
+    "expiryDate": "Tanggal Kedaluwarsa",
+    "actions": "Aksi",
+    "noResults": "Lisensi tidak ditemukan.",
+    "domainPlaceholder": "cth. shop.imago.us",
+    "cancel": "Batal",
+    "saveChanges": "Simpan Perubahan",
+    "deleteTitle": "Hapus Lisensi",
+    "deleteConfirm": "Yakin ingin menghapus {{name}}? Tindakan ini tidak bisa dibatalkan.",
+    "delete": "Hapus",
+    "blockedTitle": "Tidak Bisa Menghapus Lisensi",
+    "blockedMessage": "Ubah dulu {{name}} ke 'Free' sebelum menghapusnya.",
+    "gotIt": "Mengerti"
   }
 }

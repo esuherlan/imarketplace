@@ -133,5 +133,26 @@
     "delete": "Delete",
     "active": "active",
     "inactive": "inactive"
+  },
+  "license": {
+    "title": "License",
+    "subtitle": "Manage domain licenses for the marketplace.",
+    "addLicense": "Add License",
+    "editLicense": "Edit License",
+    "search": "Search by domain...",
+    "domainName": "Domain Name",
+    "licenseType": "License",
+    "expiryDate": "Expiry Date",
+    "actions": "Actions",
+    "noResults": "No licenses found.",
+    "domainPlaceholder": "e.g. shop.imago.us",
+    "cancel": "Cancel",
+    "saveChanges": "Save Changes",
+    "deleteTitle": "Delete License",
+    "deleteConfirm": "Are you sure you want to delete {{name}}? This action cannot be undone.",
+    "delete": "Delete",
+    "blockedTitle": "Cannot Delete License",
+    "blockedMessage": "Please change {{name}} to 'Free' before deleting it.",
+    "gotIt": "Got it"
   }
 }

@@ -12,6 +12,7 @@ import CategoriesPage from './features/categories/pages/CategoriesPage'
 import TemplatesPage from './features/templates/pages/TemplatesPage'
 import LibrariesPage from './features/libraries/pages/LibrariesPage'
 import UsersPage from './features/users/pages/UsersPage'
+import LicensePage from './features/license/pages/LicensePage'
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
@@ -29,7 +30,7 @@ createRoot(document.getElementById('root')!).render(
             <Route path="/templates" element={<TemplatesPage />} />
             <Route path="/libraries" element={<LibrariesPage />} />
             <Route path="/users" element={<UsersPage />} />
-            <Route path="/license" element={<div className="text-gray-500">License page — coming soon</div>} />
+            <Route path="/license" element={<LicensePage />} />
           </Route>
         </Route>
 
