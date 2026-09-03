@@ -4,6 +4,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { useAuthStore } from '../store/authStore';
 import { LanguageSwitcher } from '../../../components/LanguageSwitcher';
+import { sanitizeInput, isValidEmail } from '../../../lib/security';
 
 export default function LoginPage() {
   const { t } = useTranslation();
@@ -17,12 +18,23 @@ export default function LoginPage() {
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
     setError('');
+
+    const cleanEmail = sanitizeInput(email);
+    if (!isValidEmail(cleanEmail)) {
+      setError(t('auth.invalidEmail', 'Please enter a valid email address'));
+      return;
+    }
+    if (!password) {
+      setError(t('auth.invalidCredentials'));
+      return;
+    }
+
     setLoading(true);
     try {
-      await login(email, password);
+      await login(cleanEmail, password);
       navigate('/dashboard');
-    } catch {
-      setError(t('auth.invalidCredentials'));
+    } catch (err) {
+      setError(err instanceof Error ? err.message : t('auth.invalidCredentials'));
     } finally {
       setLoading(false);
     }
@@ -53,6 +65,8 @@ export default function LoginPage() {
               <input
                 type="email"
                 required
+                autoComplete="email"
+                maxLength={100}
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 className="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-brand-500"
@@ -66,6 +80,8 @@ export default function LoginPage() {
               <input
                 type="password"
                 required
+                autoComplete="current-password"
+                maxLength={128}
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 className="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-brand-500"

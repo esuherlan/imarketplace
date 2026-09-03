@@ -4,6 +4,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { useAuthStore } from '../store/authStore';
 import { LanguageSwitcher } from '../../../components/LanguageSwitcher';
+import { sanitizeInput, isValidEmail, isValidPassword, isValidName } from '../../../lib/security';
 
 export default function RegisterPage() {
   const { t } = useTranslation();
@@ -18,12 +19,29 @@ export default function RegisterPage() {
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
     setError('');
+
+    const cleanName = sanitizeInput(name);
+    const cleanEmail = sanitizeInput(email);
+
+    if (!isValidName(cleanName)) {
+      setError(t('auth.invalidName', 'Name must be 2-100 characters'));
+      return;
+    }
+    if (!isValidEmail(cleanEmail)) {
+      setError(t('auth.invalidEmail', 'Please enter a valid email address'));
+      return;
+    }
+    if (!isValidPassword(password)) {
+      setError(t('auth.invalidPassword', 'Password must be at least 8 characters'));
+      return;
+    }
+
     setLoading(true);
     try {
-      await register(name, email, password);
+      await register(cleanName, cleanEmail, password);
       navigate('/dashboard');
-    } catch {
-      setError(t('auth.registrationFailed'));
+    } catch (err) {
+      setError(err instanceof Error ? err.message : t('auth.registrationFailed'));
     } finally {
       setLoading(false);
     }
@@ -55,6 +73,8 @@ export default function RegisterPage() {
               <input
                 type="text"
                 required
+                autoComplete="name"
+                maxLength={50}
                 value={name}
                 onChange={(e) => setName(e.target.value)}
                 className="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-brand-500"
@@ -69,6 +89,8 @@ export default function RegisterPage() {
               <input
                 type="email"
                 required
+                autoComplete="email"
+                maxLength={100}
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 className="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-brand-500"
@@ -83,7 +105,9 @@ export default function RegisterPage() {
               <input
                 type="password"
                 required
-                minLength={6}
+                minLength={8}
+                maxLength={128}
+                autoComplete="new-password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 className="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-brand-500"
