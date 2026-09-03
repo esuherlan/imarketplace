@@ -76,8 +76,13 @@ Note: VITE_API_BASE_URL is injected at build time, not runtime. If the backend U
     |   `-- users/           User and role management CRUD
     |-- i18n/                Configuration and locale files (EN/ID)
     |-- lib/
-    |   `-- api.ts           Axios instance and interceptor
+    |   |-- api.ts           Axios instance and interceptor
+    |   `-- security.ts      Input sanitization helpers
+    |-- test/
+    |   `-- setup.ts         Vitest setup (jest-dom matchers)
     `-- main.tsx             Entry point and routing
+
+Each feature's store also has a co-located `__tests__/` folder for its unit tests (e.g. `features/auth/store/__tests__/authStore.test.ts`).
 
 ### Feature Pattern (CRUD)
 
@@ -98,9 +103,11 @@ Every feature module follows a consistent structure:
 | Templates | Done | Full CRUD |
 | Libraries | Done | Full CRUD |
 | Users | Done | Full CRUD with role management |
-| License | Pending | Not yet implemented |
+| License | Done | Static page |
 | Multi-language (EN/ID) | Done | Toggle via Topbar / login page |
-| Docker deployment | Done | Multi-stage build, served via nginx |
+| Docker deployment | Done | Multi-stage build, served via nginx, all routes verified |
+| Responsive layout | Done | Mobile off-canvas drawer, verified across mobile/tablet/desktop |
+| Unit testing | Done | Vitest + Testing Library, authStore & categoryStore covered |
 | Backend integration | Pending | Still using dummy data, not yet connected to a real API |
 
 ## Important Notes
@@ -108,6 +115,14 @@ Every feature module follows a consistent structure:
 - All data is currently dummy data (in-memory via Zustand, except auth which persists to localStorage). CRUD data resets to its initial state on every browser refresh.
 - The lib/api.ts structure is ready, with an axios interceptor for the auth token — it just needs to be connected to the real backend endpoint once available.
 - Type-only imports (interface/type) must use `import type { X } from '...'` since verbatimModuleSyntax is enabled in tsconfig — the build (tsc -b) will fail if this isn't followed.
+
+## Testing
+
+Unit tests are written with Vitest + React Testing Library, covering the Zustand stores (business logic like rate limiting, CRUD operations, slugify edge cases).
+
+    npm run test        # run once
+    npm run test:watch  # watch mode
+    npm run test:ui     # Vitest UI
 
 ## Scripts
 
@@ -117,3 +132,6 @@ Every feature module follows a consistent structure:
 | npm run build | Build for production (tsc -b && vite build) |
 | npm run preview | Preview the production build locally |
 | npm run lint | Run ESLint |
+| npm run test | Run unit tests once |
+| npm run test:watch | Run unit tests in watch mode |
+| npm run test:ui | Run unit tests with Vitest UI |
