@@ -1,5 +1,11 @@
 @import "tailwindcss";
 
+@layer base {
+  button:not(:disabled) {
+    cursor: pointer;
+  }
+}
+
 @theme {
   --color-brand-50: #fdeee9;
   --color-brand-100: #fad2c3;

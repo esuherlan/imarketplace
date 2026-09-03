@@ -38,21 +38,22 @@ export default function Sidebar() {
 
       <aside
         className={clsx(
-          'fixed inset-y-0 left-0 z-50 w-64 h-screen flex flex-col bg-white border-r border-gray-100',
+          'group fixed inset-y-0 left-0 z-50 w-64 h-screen flex flex-col bg-white border-r border-gray-100',
           'transition-transform duration-200',
           mobileOpen ? 'translate-x-0' : '-translate-x-full',
           'lg:sticky lg:top-0 lg:inset-auto lg:translate-x-0',
           collapsed ? 'lg:w-20' : 'lg:w-64'
         )}
       >
-        {/* Collapse toggle — floating circle on the sidebar edge, desktop only */}
+        {/* Collapse toggle — hidden by default, only appears on sidebar hover (desktop) */}
         <button
           onClick={toggleCollapsed}
           title={collapsed ? t('sidebar.expand', 'Expand') : t('sidebar.collapse', 'Collapse')}
           className={clsx(
-            'hidden lg:flex absolute -right-3 top-[52px] z-10',
-            'w-6 h-6 rounded-full bg-white border border-gray-200 shadow-sm',
-            'items-center justify-center text-gray-400 hover:text-brand-600 hover:border-brand-200 transition-colors'
+            'hidden lg:flex absolute -right-3.5 top-[52px] z-10',
+            'w-7 h-7 rounded-full bg-white ring-4 ring-gray-50 border border-gray-200 shadow-md',
+            'items-center justify-center text-gray-400 hover:text-brand-600 hover:border-brand-200 transition-colors',
+            'opacity-0 group-hover:opacity-100 transition-opacity duration-150'
           )}
         >
           <ChevronLeft
